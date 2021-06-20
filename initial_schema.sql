@@ -79,4 +79,3 @@ CREATE TABLE "public"."location" (
   "created_at" TIMESTAMP NOT NULL DEFAULT now(),
   FOREIGN KEY ("business_id") REFERENCES "public"."business"(id)
 )
-
