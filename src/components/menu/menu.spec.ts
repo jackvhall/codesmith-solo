@@ -1,6 +1,6 @@
-import ResourceProcessor from './MenuProcessor'
+import MenuProcessor from './MenuProcessor'
 
 test('it should return a thing', () => {
-  const processor = new ResourceProcessor()
+  const processor = new MenuProcessor()
   expect(processor.doStuff()).toBe('thing')
 })

@@ -6,13 +6,16 @@ const router = express.Router()
 
 router.get('/', menuController.index)
 router.post('/', menuController.create)
-router.get('/:id', menuController.show)
 router.delete('/:id', menuController.destroy)
 
-router.use(jwtCheck)
+router.get(
+  '/protected',
+  jwtCheck,
+  (req: express.Request, res: express.Response) => {
+    console.log('hit protected route')
+    res.json({ key: 'value' })
+  }
+)
 
-router.get('/protected', (req: express.Request, res: express.Response) => {
-  res.json({ key: 'value' })
-})
-
+router.get('/:id', menuController.show)
 export default router

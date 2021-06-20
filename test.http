@@ -1,5 +1,5 @@
 ### Test protected route
-GET http://localhost:3000/menus/protected HTTP/1.1
+GET http://localhost:5000/menu/protected HTTP/1.1
 Content-Type: application/json
 
 ### Get all menus

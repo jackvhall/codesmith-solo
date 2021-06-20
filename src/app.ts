@@ -3,7 +3,8 @@ import logger from 'morgan'
 import cors from 'cors'
 
 import indexRouter from './routes/index'
-import resourceRouter from './components/resource/resource.routes'
+import menuRouter from './components/menu/menu.routes'
+import pageRouter from './components/page/page.routes'
 
 const app = express()
 
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ extended: false }))
 
 // API Routes
 app.use('/', indexRouter)
-app.use('/resource', resourceRouter)
+app.use('/menu', menuRouter)
+app.use('/page', pageRouter)
 
 export default app

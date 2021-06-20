@@ -5,7 +5,7 @@ const prisma = new PrismaClient()
 
 export async function index(_req: Request, res: Response): Promise<void> {
   const allResources = await prisma.menu.findMany()
-  res.json({ resource: allResources })
+  res.json({ menus: allResources })
 }
 
 export async function create(req: Request, res: Response): Promise<void> {
