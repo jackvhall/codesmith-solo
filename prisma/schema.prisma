@@ -88,12 +88,13 @@ model Location {
 
 model Page {
   id          Int      @id @default(autoincrement())
-  activeMenu  Int      @map("active_menu")
+  activeMenu  Int?     @map("active_menu")
   title       String   @db.VarChar(255)
   price       Int?
   description String?
   created_at  DateTime @default(now()) @db.Timestamp(6)
-  menu        Menu     @relation("menuTopage", fields: [activeMenu], references: [id])
+  published   Boolean  @default(false)
+  menu        Menu?    @relation("menuTopage", fields: [activeMenu], references: [id])
 
   @@map("page")
 }

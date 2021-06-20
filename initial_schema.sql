@@ -52,6 +52,7 @@ CREATE TABLE "public"."page" (
   active_menu INTEGER NOT NULL,
   title VARCHAR(255) NOT NULL,
   price INTEGER,
+  published BOOLEAN DEFAULT false, 
   description TEXT,
   "created_at" TIMESTAMP NOT NULL DEFAULT now(),
   FOREIGN KEY ("active_menu") REFERENCES "public"."menu"(id)
