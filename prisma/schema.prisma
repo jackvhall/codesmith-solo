@@ -7,26 +7,93 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Resource {
-  id             Int              @id @default(autoincrement())
-  userId         Int              @map("user_id")
-  title          String?          @db.VarChar(255)
-  description    String?
-  created_at     DateTime         @default(now()) @db.Timestamp(6)
-  published      Boolean          @default(false)
-  ResourceChild ResourceChild[]
+model Menu {
+  id          Int           @id @default(autoincrement())
+  businessId  Int           @map("business_id")
+  title       String?       @db.VarChar(255)
+  description String?
+  created_at  DateTime      @default(now()) @db.Timestamp(6)
+  published   Boolean       @default(false)
+  sections    MenuSection[]
+  page        Page[]        @relation("menuTopage")
 
-  @@map("resource")
+  @@map("menu")
 }
 
-model ResourceChild {
-  id          Int      @id @default(autoincrement())
-  resourceId  Int      @map("resource_id")
-  title       String   @db.VarChar(255)
-  description String?
-  metadata    Json?    @db.Json
-  created_at  DateTime @default(now()) @db.Timestamp(6)
-  resource    Resource @relation(fields: [resourceId], references: [id])
+model MenuItem {
+  id            Int              @id @default(autoincrement())
+  menuSectionId Int              @map("menu_section_id")
+  title         String           @db.VarChar(255)
+  description   String?
+  price         Int
+  metadata      Json?            @db.Json
+  created_at    DateTime         @default(now()) @db.Timestamp(6)
+  section       MenuSection      @relation(fields: [menuSectionId], references: [id])
+  options       MenuItemOption[]
 
-  @@map("resource_child")
+  @@map("menu_item")
+}
+
+model MenuItemOption {
+  id          Int      @id @default(autoincrement())
+  menuItemId  Int      @map("menu_item_id")
+  title       String   @db.VarChar(255)
+  price       Int?
+  description String?
+  created_at  DateTime @default(now()) @db.Timestamp(6)
+  item        MenuItem @relation(fields: [menuItemId], references: [id])
+
+  @@map("menu_item_option")
+}
+
+model MenuSection {
+  id          Int        @id @default(autoincrement())
+  menuId      Int        @map("menu_id")
+  title       String     @db.VarChar(255)
+  description String?
+  metadata    Json?      @db.Json
+  created_at  DateTime   @default(now()) @db.Timestamp(6)
+  menu        Menu       @relation(fields: [menuId], references: [id])
+  items       MenuItem[]
+
+  @@map("menu_section")
+}
+
+model Business {
+  id          Int        @id @default(autoincrement())
+  userId      Int        @map("user_id")
+  name        String     @db.VarChar(255)
+  description String?
+  created_at  DateTime   @default(now()) @db.Timestamp(6)
+  location    Location[]
+
+  @@map("business")
+}
+
+model Location {
+  id            Int      @id @default(autoincrement())
+  businessId    Int      @map("business_id")
+  address       String   @db.VarChar(255)
+  city          String   @db.VarChar(255)
+  state         String   @db.VarChar(2)
+  postcode      String   @db.VarChar(10)
+  avatar        String?
+  images        Json?    @db.Json
+  phone_numbers Json?    @db.Json
+  created_at    DateTime @default(now()) @db.Timestamp(6)
+  business      Business @relation(fields: [businessId], references: [id])
+
+  @@map("location")
+}
+
+model Page {
+  id          Int      @id @default(autoincrement())
+  activeMenu  Int      @map("active_menu")
+  title       String   @db.VarChar(255)
+  price       Int?
+  description String?
+  created_at  DateTime @default(now()) @db.Timestamp(6)
+  menu        Menu     @relation("menuTopage", fields: [activeMenu], references: [id])
+
+  @@map("page")
 }
