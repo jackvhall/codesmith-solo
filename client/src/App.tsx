@@ -1,6 +1,6 @@
-import React from "react";
-import Home from "./pages/Home";
+import React from 'react'
+import Home from './pages/Home'
 
-const App = (): React.ReactElement => <Home />;
+const App = (): React.ReactElement => <Home />
 
-export default App;
+export default App

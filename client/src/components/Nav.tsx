@@ -1,9 +1,5 @@
 import React from 'react'
 
-export default function Nav() {
-	return (
-		<div>
-			
-		</div>
-	)
+export default function Nav(): React.ReactElement {
+  return <div></div>
 }
