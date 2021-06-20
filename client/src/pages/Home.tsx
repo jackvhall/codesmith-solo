@@ -5,7 +5,7 @@ export default function Home(): React.ReactElement {
   return (
     <div>
       <Layout>
-        <span>Inside the layout</span>
+        <span className='text-red-700'>Inside the layout</span>
       </Layout>
     </div>
   )
